@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary Ocean Blue Main */
+  --color-primary-ocean-blue-main: hsla(194, 92%, 15%);
+  --color-primary-ocean-blue-900: hsla(198, 54%, 24%);
+  --color-primary-ocean-blue-800: hsla(195, 58%, 27%);
+  --color-primary-ocean-blue-700: hsla(194, 70%, 31%);
+  --color-primary-ocean-blue-600: hsla(192, 77%, 36%);
+  --color-primary-ocean-blue-500: hsla(190, 80%, 43%);
+  --color-primary-ocean-blue-400: hsla(189, 72%, 53%);
+  --color-primary-ocean-blue-300: hsla(188, 77%, 69%);
+  --color-primary-ocean-blue-200: hsla(187, 78%, 82%);
+  --color-primary-ocean-blue-100: hsla(186, 80%, 90%);
+  --color-primary-ocean-blue-50: hsla(180, 79%, 96%);
+
+  /* Secondary Blue */
+  --color-secondary-blue-500: hsla(197, 67%, 48%);
+  --color-secondary-blue-400: hsla(197, 70%, 60%);
+  --color-secondary-blue-300: hsla(198, 72%, 74%);
+  --color-secondary-blue-200: hsla(200, 72%, 86%);
+  --color-secondary-blue-100: hsla(205, 69%, 94%);
+
+  /* Secondary Gray */
+  --color-secondary-gray-950: hsla(0, 0%, 15%);
+  --color-secondary-gray-900: hsla(0, 0%, 24%);
+  --color-secondary-gray-800: hsla(0, 0%, 27%);
+  --color-secondary-gray-700: hsla(0, 0%, 31%);
+  --color-secondary-gray-600: hsla(0, 0%, 36%);
+  --color-secondary-gray-500: hsla(0, 0%, 43%);
+  --color-secondary-gray-400: hsla(0, 0%, 53%);
+  --color-secondary-gray-300: hsla(0, 0%, 69%);
+  --color-secondary-gray-200: hsla(0, 0%, 82%);
+  --color-secondary-gray-100: hsla(0, 0%, 91%);
+  --color-secondary-gray-50: hsla(0, 0%, 96%);
+
+  /* Communication */
+  --color-success-01: hsla(171, 73%, 22%);
+  --color-success-02: hsla(168, 84%, 38%);
+  --color-success-03: hsla(162, 76%, 97%);
+  --color-process-01: hsla(38, 75%, 33%);
+  --color-process-02: hsla(50, 78%, 53%);
+  --color-process-03: hsla(57, 75%, 95%);
+  --color-deactive-01: hsla(24, 83%, 40%);
+  --color-deactive-02: hsla(31, 89%, 57%);
+  --color-deactive-03: hsla(41, 89%, 96%);
+  --color-urgent-01: hsla(1, 86%, 35%);
+  --color-urgent-02: hsla(1, 88%, 55%);
+  --color-urgent-03: hsla(0, 100%, 97%);
+  --color-accept-01: hsla(211, 61%, 27%);
+  --color-accept-02: hsla(209, 60%, 52%);
+  --color-accept-03: hsla(213, 73%, 97%);
+}
+
+/* Background Gradient */
+.bg-gradient-ocean-blue-01 {
+  background: linear-gradient(to right, hsla(194, 92%, 15%, 1), hsla(192, 77%, 35%, 1));
+}
+
+.bg-gradient-ocean-blue-02 {
+  background: linear-gradient(to bottom, hsla(194, 92%, 15%, 1), hsla(192, 77%, 36%, 1));
+}
+
+.bg-gradient-blue {
+  background: linear-gradient(to right, hsla(192, 77%, 35%, 1), hsla(198, 72%, 74%, 1));
+}
+
+.bg-gradient-ocean-green {
+  background: linear-gradient(to right, hsla(192, 77%, 35%, 1), hsla(168, 84%, 38%, 1));
+}
+
+/* Drop Shadow */
+.shadow-ocean-blue {
+  box-shadow: 0 8px 16px hsla(194, 92%, 15%, 0.25);
+}
+
+/* Typography */
+h1 {
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 64px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+p.h7 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+p.h8 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+p.h9 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+p.title1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+p.title2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+p.title3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+p.title4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+p.title5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+p.body1 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+p.body2 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+p.body3 {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+p.body4 {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+p.body5 {
+  font-size: 10px;
+  font-weight: 400;
+}
