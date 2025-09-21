@@ -5,7 +5,7 @@ import { useToast } from "@/components/ui/toast/use-toast";
 import { ticketApi } from "@/services/ticket/ticketApi";
 import { useGlobalStore } from "@/store/globalStore";
 import { useTicketStore } from "@/store/ticket/ticketStore";
-import { EHttpStatusCode, ESortDirection } from "@/types/enum";
+import { ESortDirection } from "@/types/enum";
 
 interface keyHeaderListProps {
   title: string;
@@ -59,66 +59,93 @@ export default function useTicketList() {
           : ESortDirection.ASC,
     }));
 
-    const res = await ticketApi.getAllTickets({
-      ...getTicketParams(),
-      page: 1,
-      sort: sorting.key,
-      order: sorting.direction,
-    });
-    if (res.statusCode === EHttpStatusCode.SUCCESS) {
+    try {
+      const res = await ticketApi.getAllTickets({
+        ...getTicketParams(),
+        page: 1,
+        sort: sorting.key,
+        order: sorting.direction,
+        pageSize: getTicketParams().pageSize,
+        search: getTicketParams().search,
+        status: getTicketParams().status,
+        priority: getTicketParams().priority,
+      });
       setTickets(res.data);
-    } else {
+      setTicketParams({
+        ...res.pagination,
+        search: getTicketParams().search,
+        status: getTicketParams().status,
+        priority: getTicketParams().priority,
+        sort: sorting.key,
+        order: sorting.direction,
+      });
+    } catch (err: any) {
       toast({
         variant: "error",
-        description: res.message,
+        description: err.message || "An unknown error occurred",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const setPage = async (page: number) => {
-    const newSearchParams = {
-      ...getTicketParams(),
-      page,
-    };
-
     setLoading(true);
-
     try {
-      const res = await ticketApi.getAllTickets(newSearchParams);
-      if (res.statusCode === EHttpStatusCode.SUCCESS) {
-        setTickets(res.data);
-        setTicketParams(res.pagination);
-      } else {
-        toast({
-          variant: "error",
-          description: res.message,
-        });
-      }
+      const res = await ticketApi.getAllTickets({
+        page,
+        pageSize: getTicketParams().pageSize,
+        search: getTicketParams().search,
+        status: getTicketParams().status,
+        priority: getTicketParams().priority,
+        sort: getTicketParams().sort,
+        order: getTicketParams().order,
+      });
+      setTickets(res.data);
+      setTicketParams({
+        ...res.pagination,
+        search: getTicketParams().search,
+        status: getTicketParams().status,
+        priority: getTicketParams().priority,
+        sort: getTicketParams().sort,
+        order: getTicketParams().order,
+      });
+    } catch (err: any) {
+      toast({
+        variant: "error",
+        description: err.message || "An unknown error occurred",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   const setPageSize = async (pageSize: number) => {
-    const newSearchParams = {
-      ...getTicketParams(),
-      page: 1,
-      pageSize,
-    };
-
     setLoading(true);
-
     try {
-      const res = await ticketApi.getAllTickets(newSearchParams);
-      if (res.statusCode === EHttpStatusCode.SUCCESS) {
-        setTickets(res.data);
-        setTicketParams(res.pagination);
-      } else {
-        toast({
-          variant: "error",
-          description: res.message,
-        });
-      }
+      const res = await ticketApi.getAllTickets({
+        page: 1,
+        pageSize,
+        search: getTicketParams().search,
+        status: getTicketParams().status,
+        priority: getTicketParams().priority,
+        sort: getTicketParams().sort,
+        order: getTicketParams().order,
+      });
+      setTickets(res.data);
+      setTicketParams({
+        ...res.pagination,
+        search: getTicketParams().search,
+        status: getTicketParams().status,
+        priority: getTicketParams().priority,
+        sort: getTicketParams().sort,
+        order: getTicketParams().order,
+      });
+    } catch (err: any) {
+      toast({
+        variant: "error",
+        description: err.message || "An unknown error occurred",
+      });
     } finally {
       setLoading(false);
     }

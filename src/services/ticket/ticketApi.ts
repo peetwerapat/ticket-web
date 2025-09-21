@@ -1,11 +1,13 @@
+// services/ticket/ticketApi.ts
 import { apiDelete, apiGet, apiPatch, apiPost } from "../common";
 
 import {
   ETicketPriority,
   ETicketStatus,
 } from "@/feature/ticket/type/ticket.enum";
-import { TTicket, TUpdateTicket } from "@/feature/ticket/type/ticket.type";
+import { TTicket } from "@/feature/ticket/type/ticket.type";
 import { CreateTicketForm } from "@/feature/ticket/validate/create.ticket.validate";
+import { UpdateTicketForm } from "@/feature/ticket/validate/update.ticket.validate";
 import {
   IBaseParams,
   IBaseResponseData,
@@ -18,57 +20,50 @@ export interface ticketParams extends IBaseParams {
 }
 
 export const ticketApi = {
-  // API GET
   getAllTickets: async (
     getAllParams: ticketParams
   ): Promise<IResponseWithPaginate<TTicket[]>> => {
     const params = new URLSearchParams();
+
     params.set("page", getAllParams.page.toString());
     params.set("pageSize", getAllParams.pageSize.toString());
 
-    if (getAllParams.search)
-      params.set("search", getAllParams.search.toString());
-
+    if (getAllParams.search) params.set("search", getAllParams.search);
     if (getAllParams.sort) params.set("sort", getAllParams.sort);
     if (getAllParams.order) params.set("order", getAllParams.order);
-
     if (getAllParams.status) params.set("status", getAllParams.status);
     if (getAllParams.priority) params.set("priority", getAllParams.priority);
 
-    const response = apiGet("/tickets", params.toString());
-
-    return response;
+    return await apiGet<IResponseWithPaginate<TTicket[]>>(
+      "/tickets",
+      params.toString()
+    );
   },
 
   getTicketById: async (id: number): Promise<IBaseResponseData<TTicket>> => {
-    const response = await apiGet(`/tickets/${id}`);
-
-    return response;
+    return await apiGet<IBaseResponseData<TTicket>>(`/tickets/${id}`);
   },
 
-  // API POST
   createTicket: async (
     data: CreateTicketForm
   ): Promise<IBaseResponseData<TTicket>> => {
-    const response = await apiPost("/tickets", data);
-
-    return response;
+    return await apiPost<IBaseResponseData<TTicket>, CreateTicketForm>(
+      "/tickets",
+      data
+    );
   },
 
-  // API PATCH
   updateTicket: async (
     id: number,
-    data: TUpdateTicket
+    data: UpdateTicketForm
   ): Promise<IBaseResponseData<TTicket>> => {
-    const response = await apiPatch(`/tickets/${id}`, data);
-
-    return response;
+    return await apiPatch<IBaseResponseData<TTicket>, UpdateTicketForm>(
+      `/tickets/${id}`,
+      data
+    );
   },
 
-  // API DELETE
   deleteTicket: async (id: number): Promise<IBaseResponseData<TTicket>> => {
-    const response = await apiDelete(`/tickets/${id}`);
-
-    return response;
+    return await apiDelete<IBaseResponseData<TTicket>>(`/tickets/${id}`);
   },
 };

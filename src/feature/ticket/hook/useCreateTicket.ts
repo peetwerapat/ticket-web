@@ -10,7 +10,6 @@ import {
 
 import { useToast } from "@/components/ui/toast/use-toast";
 import { ticketApi } from "@/services/ticket/ticketApi";
-import { EHttpStatusCode } from "@/types/enum";
 
 export default function useCreateTicket() {
   // Hook
@@ -33,18 +32,17 @@ export default function useCreateTicket() {
 
   // Function
   const handleClickCreate = async (data: CreateTicketForm) => {
-    const res = await ticketApi.createTicket(data);
-
-    if (res.statusCode === EHttpStatusCode.CREATED) {
+    try {
+      const res = await ticketApi.createTicket(data);
       toast({
         variant: "success",
         description: res.message,
       });
       router.back();
-    } else {
+    } catch (err: any) {
       toast({
         variant: "error",
-        description: res.message,
+        description: err.message || "An unknown error occurred",
       });
     }
   };

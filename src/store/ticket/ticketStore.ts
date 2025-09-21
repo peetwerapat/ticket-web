@@ -29,10 +29,14 @@ export const useTicketStore = create<ticketStore>((set, get) => ({
     set((state) => ({
       ticketParams: {
         ...state.ticketParams,
-        page: getAllParams.page ?? 1,
-        pageSize: getAllParams.pageSize ?? 10,
-        totalCounts: getAllParams.totalCounts ?? 0,
-        totalPages: getAllParams.totalPages ?? 10,
+        page: getAllParams.page,
+        pageSize: getAllParams.pageSize,
+        totalCounts: getAllParams.totalCounts,
+        totalPages: getAllParams.totalPages,
+        search: getAllParams.search,
+        status: getAllParams.status,
+        sort: getAllParams.sort,
+        order: getAllParams.order,
       },
     }));
   },

@@ -12,7 +12,6 @@ import {
 
 import { useToast } from "@/components/ui/toast/use-toast";
 import { ticketApi } from "@/services/ticket/ticketApi";
-import { EHttpStatusCode } from "@/types/enum";
 
 export default function useViewAndEditTicket() {
   // Local State
@@ -44,28 +43,23 @@ export default function useViewAndEditTicket() {
   // Fetch Data
   useEffect(() => {
     if (id) {
-      const fetchData = async () => {
+      (async () => {
         try {
           const res = await ticketApi.getTicketById(Number(id));
-
-          if (res.statusCode === EHttpStatusCode.SUCCESS) {
-            setTicketById(res.data);
-            reset({
-              title: res.data.title,
-              description: res.data.description,
-              status: res.data.status,
-              priority: res.data.priority,
-            });
-          } else {
-            toast({ variant: "error", description: res.message });
-          }
-        } catch (error) {
-          if (error instanceof Error)
-            toast({ variant: "error", description: error.message });
+          setTicketById(res.data);
+          reset({
+            title: res.data.title,
+            description: res.data.description,
+            status: res.data.status,
+            priority: res.data.priority,
+          });
+        } catch (err: any) {
+          toast({
+            variant: "error",
+            description: err.message || "An unknown error occurred",
+          });
         }
-      };
-
-      fetchData();
+      })();
     }
   }, [id, reset, toast]);
 
@@ -73,20 +67,17 @@ export default function useViewAndEditTicket() {
   const onSubmit = async (data: UpdateTicketForm) => {
     try {
       const res = await ticketApi.updateTicket(Number(id), data);
-
-      if (res.statusCode === EHttpStatusCode.SUCCESS) {
-        toast({
-          variant: "success",
-          description: res.message,
-        });
-        setTicketById(res.data);
-        setIsEditing(false);
-      } else {
-        toast({ variant: "error", description: res.message });
-      }
-    } catch (error) {
-      if (error instanceof Error)
-        toast({ variant: "error", description: error.message });
+      setTicketById(res.data);
+      setIsEditing(false);
+      toast({
+        variant: "success",
+        description: res.message,
+      });
+    } catch (err: any) {
+      toast({
+        variant: "error",
+        description: err.message || "An unknown error occurred",
+      });
     }
   };
 
@@ -108,20 +99,26 @@ export default function useViewAndEditTicket() {
   };
 
   const handleClickConfirmDelete = async () => {
-    if (ticketById?.id) {
-      const res = await ticketApi.deleteTicket(ticketById?.id);
+    if (!ticketById?.id) {
+      toast({
+        variant: "error",
+        description: "This ticket not found.",
+      });
+      return;
+    }
 
-      if (res.statusCode === EHttpStatusCode.SUCCESS) {
-        toast({
-          variant: "success",
-          description: res.message,
-        });
-        router.push("/tickets");
-      } else {
-        toast({ variant: "error", description: res.message });
-      }
-    } else {
-      toast({ variant: "error", description: "This ticket not found." });
+    try {
+      const res = await ticketApi.deleteTicket(ticketById.id);
+      toast({
+        variant: "success",
+        description: res.message,
+      });
+      router.push("/tickets");
+    } catch (err: any) {
+      toast({
+        variant: "error",
+        description: err.message || "An unknown error occurred",
+      });
     }
   };
 

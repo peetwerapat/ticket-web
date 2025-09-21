@@ -1,1 +1,1 @@
-export { default as DialogDelete } from "./svg/dialog-delete.svg";
+export { default as DialogDeleted } from "./svg/dialog-delete.svg";

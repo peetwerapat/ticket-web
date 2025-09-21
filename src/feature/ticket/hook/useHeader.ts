@@ -4,11 +4,9 @@ import { useRouter } from "next/navigation";
 
 import { ETicketPriority, ETicketStatus } from "../type/ticket.enum";
 
-import { useToast } from "@/components/ui/toast/use-toast";
 import { ticketApi } from "@/services/ticket/ticketApi";
 import { useGlobalStore } from "@/store/globalStore";
 import { useTicketStore } from "@/store/ticket/ticketStore";
-import { EHttpStatusCode } from "@/types/enum";
 
 export default function useHeader() {
   // Global State
@@ -19,7 +17,10 @@ export default function useHeader() {
       setTicketParams: state.setTicketParams,
     })
   );
-  const setLoading = useGlobalStore((state) => state.setLoading);
+  const { setLoading, setError } = useGlobalStore((state) => ({
+    setLoading: state.setLoading,
+    setError: state.setError,
+  }));
 
   // Local State
   const [searchValue, setSearchValue] = useState<string>("");
@@ -28,47 +29,33 @@ export default function useHeader() {
 
   // Hook
   const router = useRouter();
-  const { toast } = useToast();
   const debouncedSearch = useCallback(
-    debounce(() => {
-      const searchData = async () => {
-        setLoading(true);
-        try {
-          const res = await ticketApi.getAllTickets({
-            ...getTicketParams(),
-            page: 1,
-            search: searchValue,
-            status: statusValue,
-            priority: priorityValue,
-          });
+    debounce(async () => {
+      setLoading(true);
+      try {
+        const res = await ticketApi.getAllTickets({
+          ...getTicketParams(),
+          page: 1,
+          search: searchValue,
+          status: statusValue,
+          priority: priorityValue,
+        });
 
-          if (res.statusCode === EHttpStatusCode.SUCCESS) {
-            setTickets(res.data);
-            setTicketParams(res.pagination);
-          } else {
-            toast({
-              variant: "error",
-              description: res.message,
-            });
-          }
-        } catch (err) {
-          if (err instanceof Error) {
-            toast({
-              variant: "error",
-              description: err.message,
-            });
-          } else {
-            toast({
-              variant: "error",
-              description: "An unknown error occurred.",
-            });
-          }
-        } finally {
-          setLoading(false);
-        }
-      };
+        setTickets(res.data);
+        setTicketParams({
+          ...res.pagination,
+          search: searchValue,
+          status: statusValue,
+          priority: priorityValue,
+        });
+      } catch (err: any) {
+        const message =
+          err instanceof Error ? err.message : "An unknown error occurred";
 
-      searchData();
+        setError(message);
+      } finally {
+        setLoading(false);
+      }
     }, 300),
     [searchValue, statusValue, priorityValue]
   );

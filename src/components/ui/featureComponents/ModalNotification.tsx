@@ -83,7 +83,7 @@ export default function ModalNotification({
             <p className="font-bold text-xl md:text-2xl text-neutral-09">
               {title}
             </p>
-            <p className="md:body1 text-neutral-09">{description}</p>
+            <p className="md:text-sm text-neutral-09">{description}</p>
             <p className="md:body1 text-neutral-09">{description2}</p>
           </div>
         </div>

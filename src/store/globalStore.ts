@@ -8,6 +8,9 @@ type GlobalStore = {
   setCurrentStep: (step: number) => void;
   handleNextStep: () => void;
   handleBackStep: () => void;
+
+  error: string | null;
+  setError: (error: string) => void;
 };
 
 export const useGlobalStore = create<GlobalStore>((set, get) => ({
@@ -26,4 +29,7 @@ export const useGlobalStore = create<GlobalStore>((set, get) => ({
     set((state) => ({ currentStep: state.currentStep + 1 })),
   handleBackStep: () =>
     set((state) => ({ currentStep: state.currentStep - 1 })),
+
+  error: null,
+  setError: (error) => set({ error }),
 }));

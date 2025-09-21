@@ -9,13 +9,3 @@ export type TTicket = {
   createdAt: Date;
   updatedAt: Date;
 };
-
-export type TCreateTicket = {
-  title: string;
-  description: string;
-  priority: ETicketPriority;
-};
-
-export type TUpdateTicket = Partial<TCreateTicket> & {
-  status?: ETicketStatus;
-};

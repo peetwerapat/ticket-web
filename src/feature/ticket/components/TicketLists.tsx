@@ -26,7 +26,10 @@ export default function TicketLists() {
     tickets: state.tickets,
     getTicketParams: state.getTicketParams,
   }));
-  const loading = useGlobalStore((state) => state.loading);
+  const { loading, error } = useGlobalStore((state) => ({
+    loading: state.loading,
+    error: state.error,
+  }));
 
   // Hook
   const {
@@ -39,6 +42,16 @@ export default function TicketLists() {
 
   // Render Table
   const renderTableRows = () => {
+    if (error) {
+      return (
+        <TableRow>
+          <TableCell colSpan={10} className="text-center py-10 text-red-500">
+            {error}
+          </TableCell>
+        </TableRow>
+      );
+    }
+
     if (loading.value) {
       return Array.from({ length: getTicketParams().pageSize }).map(
         (_, idx) => <SkeletonTicketRow key={idx} />

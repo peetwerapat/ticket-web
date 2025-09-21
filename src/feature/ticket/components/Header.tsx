@@ -1,3 +1,5 @@
+"use client";
+
 import { priorityOption, statusOption } from "../const/const";
 import useHeader from "../hook/useHeader";
 import { ETicketPriority, ETicketStatus } from "../type/ticket.enum";

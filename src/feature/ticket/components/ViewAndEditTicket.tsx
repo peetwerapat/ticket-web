@@ -149,7 +149,7 @@ export default function ViewAndEditTicket() {
         title="Confirm to delete this ticket"
         description="If you delete this ticket you cannot to restore it."
         buttonText="Confirm"
-        icon={<Icons name="DialogDelete" className="w-16 h-16" />}
+        icon={<Icons name="DialogDeleted" className="w-16 h-16" />}
         buttonVariant="delete"
         onCancel={handleClickCancelDelete}
         onConfirm={handleClickConfirmDelete}
