@@ -42,6 +42,12 @@ export default function TicketLists() {
 
   // Render Table
   const renderTableRows = () => {
+    if (loading.value || tickets === null) {
+      return Array.from({ length: getTicketParams().pageSize || 10 }).map(
+        (_, idx) => <SkeletonTicketRow key={idx} />
+      );
+    }
+
     if (error) {
       return (
         <TableRow>
@@ -52,13 +58,7 @@ export default function TicketLists() {
       );
     }
 
-    if (loading.value) {
-      return Array.from({ length: getTicketParams().pageSize }).map(
-        (_, idx) => <SkeletonTicketRow key={idx} />
-      );
-    }
-
-    if (!tickets || tickets.length === 0) {
+    if (!loading.value && tickets?.length === 0) {
       return (
         <TableRow>
           <TableCell
@@ -71,7 +71,7 @@ export default function TicketLists() {
       );
     }
 
-    return tickets.map((ticket) => (
+    return tickets?.map((ticket) => (
       <TableRow key={ticket.id}>
         <TableCell>{ticket.title}</TableCell>
         <TableCell>{ticket.description}</TableCell>

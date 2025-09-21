@@ -18,6 +18,15 @@ export default function SkeletonTicketRow() {
       <TableCell>
         <Skeleton className="h-4 w-[80px]" />
       </TableCell>
+      <TableCell>
+        <Skeleton className="h-4 w-[120px]" />
+      </TableCell>
+      <TableCell>
+        <Skeleton className="h-4 w-[120px]" />
+      </TableCell>
+      <TableCell>
+        <Skeleton className="h-4 w-[80px]" />
+      </TableCell>
     </TableRow>
   );
 }
