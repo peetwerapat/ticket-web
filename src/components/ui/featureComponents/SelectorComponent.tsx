@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "../select";
 
+import { cn } from "@/lib/utils";
 import { IOption } from "@/types/globalType";
 
 interface ISelectorComponentProps {
@@ -23,6 +24,7 @@ interface ISelectorComponentProps {
   disabled?: boolean;
   isRequire?: boolean;
   titleColor?: string;
+  className?: string;
 }
 
 export const SelectorComponent = ({
@@ -30,14 +32,15 @@ export const SelectorComponent = ({
   options,
   value,
   onChange,
-  placeholder = "กรุณาเลือก",
+  placeholder = "please select",
   error,
   disabled,
   isRequire,
   titleColor = "secondary-gray-950",
+  className,
 }: ISelectorComponentProps) => {
   return (
-    <div className="w-full flex flex-col gap-1">
+    <div className={cn("w-full flex flex-col gap-1", className)}>
       <p className={`text-${titleColor}`}>
         {title} {isRequire && <span className="text-urgent-02">*</span>}
       </p>

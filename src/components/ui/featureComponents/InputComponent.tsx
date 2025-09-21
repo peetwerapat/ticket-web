@@ -5,9 +5,10 @@ import { Icons } from "../../../icons/index";
 import { Input } from "../input";
 
 import idCardCheck from "@/lib/idCardCheck";
+import { cn } from "@/lib/utils";
 
 interface IInputCompoenentProps {
-  title: string;
+  title?: string;
   isNum?: boolean;
   istel?: boolean;
   isEmail?: boolean;
@@ -23,7 +24,8 @@ interface IInputCompoenentProps {
   value?: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
-  placholder?: string;
+  placeHolder?: string;
+  className?: string;
 }
 export const InputComponent = React.forwardRef<
   HTMLInputElement,
@@ -47,13 +49,14 @@ export const InputComponent = React.forwardRef<
       value,
       onChange,
       disabled,
-      placholder = "กรุณากรอก",
+      placeHolder = "please typing",
+      className,
       ...props
     },
     ref
   ) => {
     return (
-      <div className="w-full flex flex-col gap-1">
+      <div className={cn("w-full flex flex-col gap-1", className)}>
         <p className={`text-${titleColor}`}>
           {title} {isRequire && <span className="text-urgent-02">*</span>}
         </p>
@@ -63,7 +66,7 @@ export const InputComponent = React.forwardRef<
             value={value}
             onChange={onChange}
             disabled={disabled}
-            placeholder={placholder}
+            placeholder={placeHolder}
             type={
               isNum
                 ? "number"

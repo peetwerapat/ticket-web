@@ -19,9 +19,13 @@ const buttonVariants = cva(
         "secondary-outline":
           "secondary-outline group bg-white border border-primary-ocean-blue-600 text-primary-ocean-blue-600 hover:bg-primary-ocean-blue-100 hover:border-primary-ocean-blue-100 disabled:bg-white disabled:border-secondary-gray-300 disabled:text-secondary-gray-300",
         outline: "bg-background",
+        delete:
+          "delete group rounded-3xl bg-urgent-02 text-white hover:bg-urgent-01 disabled:bg-white disabled:border-secondary-gray-300 disabled:text-secondary-gray-300",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         datePicker:
           "bg-background hover:bg-accent hover:text-accent-foreground",
+        "soft-red":
+          "soft-red group rounded-3xl bg-primary-soft-red text-white hover:bg-primary-soft-red-2 hover:shadow-primary-soft-red-2 disabled:bg-secondary-gray-100 disabled:bg-secondary-gray-300",
       },
       size: {
         default: "h-10 px-4 py-2 w-fit",

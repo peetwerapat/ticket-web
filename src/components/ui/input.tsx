@@ -29,7 +29,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       onIconClick,
       disabled = false,
       rounded = "md",
-      borderColor = "border-secondary-gray-300",
+      borderColor = "border-primary-soft-red",
       ...props
     },
     ref

@@ -14,6 +14,10 @@
   --color-primary-ocean-blue-100: hsla(186, 80%, 90%);
   --color-primary-ocean-blue-50: hsla(180, 79%, 96%);
 
+  --color-primary-soft-red: hsl(350.5,91.7%,71.6%);
+  --color-primary-soft-red-2: hsl(359, 93%, 78%);
+  
+
   /* Secondary Blue */
   --color-secondary-blue-500: hsla(197, 67%, 48%);
   --color-secondary-blue-400: hsla(197, 70%, 60%);

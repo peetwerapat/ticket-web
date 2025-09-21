@@ -90,6 +90,7 @@ export { default as SendTwoOutline } from "./svg/send-2-outline.svg";
 export { default as SendOutline } from "./svg/send-outline.svg";
 export { default as SettingTwoOutline } from "./svg/setting-2-outline.svg";
 export { default as SmsOutline } from "./svg/sms-outline.svg";
+export { default as SwapOutline } from "./svg/swap-outline.svg";
 export { default as TickCircleOutline } from "./svg/tick-circle-outline.svg";
 export { default as TickSquareOutline } from "./svg/tick-square-outline.svg";
 export { default as TimerOutline } from "./svg/timer-outline.svg";

@@ -33,6 +33,7 @@ interface ModalProps {
     | "secondary"
     | "secondary-outline"
     | "outline"
+    | "delete"
     | null;
   isClose?: boolean;
   buttonSize?:

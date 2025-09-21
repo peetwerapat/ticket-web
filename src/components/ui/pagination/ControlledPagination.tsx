@@ -12,24 +12,22 @@ import {
 } from "./pagination";
 
 import { cn } from "@/lib/utils";
-import { IMeta } from "@/types/globalType";
+import { IPagination } from "@/types/globalType";
 
 interface paginateProps {
-  configPagination: IMeta;
+  configPagination: IPagination;
   setPage: (page: number) => void;
-  setLimit: (limit: number) => void;
+  setPageSize: (pageSize: number) => void;
   className?: string;
-  setPageAfterSetLimit?: boolean;
 }
 
 const SizeOptions: string[] = ["10", "20", "30"];
 
 const ControlledPaginate = ({
-  configPagination: { page = 1, limit = 10, totalPages = 1 },
+  configPagination: { page = 1, pageSize = 10, totalPages = 1 },
   setPage,
-  setLimit,
+  setPageSize,
   className,
-  setPageAfterSetLimit = true,
 }: paginateProps) => {
   // Page Number
   const getVisiblePages = (current: number, total: number, maxVisible = 5) => {
@@ -71,12 +69,23 @@ const ControlledPaginate = ({
 
   // Page size change handler
   const handlePageSizeChange = (data: number) => {
-    setLimit(data);
-    if (setPageAfterSetLimit) setPage(1);
+    setPageSize(data);
   };
 
   return (
     <div className={cn("flex gap-8 items-center", className)}>
+      <div className="flex items-center gap-2">
+        <p className="title5 text-secondary-gray-900">Items per page</p>
+        <Dropdown
+          options={SizeOptions}
+          placeholder="Search..."
+          selected={pageSize.toString()}
+          className="w-20 border border-primary-soft-red text-sm font-semibold rounded-md"
+          onChange={(value) => handlePageSizeChange(Number(value))}
+          border={false}
+        />
+      </div>
+
       <Pagination>
         <PaginationContent>
           {/* Previous button */}
@@ -95,22 +104,19 @@ const ControlledPaginate = ({
           <div className="flex items-center justify-center gap-2">
             {getVisiblePages(page, totalPages).map((pageLink, index) => (
               <PaginationItem key={index}>
-                {typeof pageLink === "number" ? (
-                  <PaginationLink
-                    onClick={() => setPage(pageLink)}
-                    isActive={pageLink === page}
-                    className={cn("body3 text-secondary-gray-900", {
-                      "text-white bg-primary-ocean-blue-600 h-fit py-1 rounded-full":
+                <PaginationLink
+                  onClick={() => setPage(+pageLink)}
+                  isActive={pageLink === page}
+                  className={cn(
+                    "cursor-pointer body3 text-secondary-gray-900",
+                    {
+                      "text-white bg-primary-soft-red h-fit py-1 rounded-full":
                         pageLink === page,
-                    })}
-                  >
-                    <p>{pageLink}</p>
-                  </PaginationLink>
-                ) : (
-                  <span className="body3 text-secondary-gray-500 px-2">
-                    {pageLink}
-                  </span>
-                )}
+                    }
+                  )}
+                >
+                  <p>{pageLink}</p>
+                </PaginationLink>
               </PaginationItem>
             ))}
           </div>
@@ -129,18 +135,6 @@ const ControlledPaginate = ({
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-
-      <div className="flex items-center gap-2">
-        <p className="title5 text-secondary-gray-900">Items per page</p>
-        <Dropdown
-          options={SizeOptions}
-          placeholder="Search..."
-          selected={limit.toString()}
-          className="w-20 border border-primary-ocean-blue-600 text-sm font-semibold rounded-md"
-          onChange={(value) => handlePageSizeChange(Number(value))}
-          border={false}
-        />
-      </div>
     </div>
   );
 };

@@ -7,3 +7,8 @@ export enum EHttpStatusCode {
   INVALID_TOKEN = 498,
   SERVER_ERROR = 500,
 }
+
+export enum ESortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
